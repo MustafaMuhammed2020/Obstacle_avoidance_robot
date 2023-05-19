@@ -16,6 +16,7 @@
 #include "../MCAL/timer1/timer1_interface.h"
 #include "../HAL/lcd/LCD_interface.h"
 #include "../MCAL/timer0/TMR0_interface.h"
+#include "../HAL/icu/ICU_interface.h"
 
 /** INCLUDE DRIVER FILES **/
 #include "APP.h"
@@ -29,19 +30,15 @@ void APP_init()
 {
 	//u8_g_edge = 0 , u16_g_t1 = 0 , u16_g_t2 = 0 , u16_g_time = 0 ; /** INITIALIZATION FOR EDGES COUNTER **/
 	
-	DIO_setpindir(DIO_PORTD , DIO_PIN2 , DIO_PIN_INPUT); /** INT0 PIN **/
-	
-	INT0_init(); /** INITIALIZE INT0 **/
-	
+	ICU_init(); /** INITIALIZE ICU **/
+		
 	TMR0_init(); /** INITIALIZE TIMER0 **/
-	
-	TMR1_init(); /** INITIALIZE TIMER1 **/
 	
 	LCD_init(); /** INITIALIZE LCD **/
 	
 	TMR0_delayms(50); /** DELAY FOR LCD INITIALIZATION **/
 	
-	TMR1_start();
+	TMR1_start(); /** START TIMER 1 COUNTING **/
 	
 }
 
@@ -58,7 +55,7 @@ ISR(INT0_vect) /** ISR OF INT0 **/
 	
 	if (u8_g_edge == 1) /** FIRST RISING EDGE **/
 	{
-		TMR1_getvalue(&u16_g_t1);
+		u16_g_t1 = ICU_getvalue() ;
 		LCD_goto(0,0);
 		LCD_writestr("t1 = ");
 		LCD_writeint(u16_g_t1);
@@ -66,7 +63,7 @@ ISR(INT0_vect) /** ISR OF INT0 **/
 	
  	if (u8_g_edge == 2) /** SECOND RISING EDGE **/
  	{
- 		TMR1_getvalue(&u16_g_t2);
+ 		u16_g_t2 = ICU_getvalue();
  		
 		LCD_goto(1,0);
 		LCD_writestr("t2 = ");

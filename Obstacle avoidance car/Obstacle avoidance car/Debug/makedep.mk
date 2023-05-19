@@ -4,6 +4,8 @@
 
 APP\APP.c
 
+HAL\icu\ICU_program.c
+
 HAL\lcd\LCD_program.c
 
 main.c
