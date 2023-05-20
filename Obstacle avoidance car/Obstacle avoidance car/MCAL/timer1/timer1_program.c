@@ -58,8 +58,8 @@ TMR1_status TMR1_init(void)
 	  set_bit(TCCR1A , 3);
 	  
 	  /* ENABLE INTERRUPT */
-	  set_bit(SREG , 7);   /** ENABLE GLOBAL INTTERUPTS **/
-	  set_bit(TIMSK , 2);  /** NABLE TMR1 INTERRUPT **/
+	 // set_bit(SREG , 7);   /** ENABLE GLOBAL INTTERUPTS **/
+	  //set_bit(TIMSK , 2);  /** NABLE TMR1 INTERRUPT **/
 	  
 	 #elif TMR1_MODE == CTC_UNITA_MODE
 	  
@@ -617,4 +617,9 @@ uint32_t TMR1_getovs(uint32_t u32_a_delay)
 void TMR1_getvalue(uint16t * u16_a_value)
 {
 	*u16_a_value = TCNT1 ; /** GET THE VALUE FROM TIMER1 COUNTING REGISTER **/
+}
+
+void TMR1_setvalue(uint16t u16_a_value)
+{
+	TCNT1 = u16_a_value;
 }

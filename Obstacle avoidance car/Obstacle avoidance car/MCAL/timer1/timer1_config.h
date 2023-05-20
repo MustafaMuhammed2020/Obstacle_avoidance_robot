@@ -57,7 +57,7 @@
 /**                      4 - PRESCALER_256                           **/
 /**                      5 - PRESCALER_1024                          **/
 /**********************************************************************/
-#define TMR1_PRESCALLER_VALUE       PRESCALER_1024      
+#define TMR1_PRESCALLER_VALUE       NO_PRESCALER      
 
 
 /**********************************************************************/

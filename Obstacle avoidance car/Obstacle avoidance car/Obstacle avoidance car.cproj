@@ -20,10 +20,10 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -120,9 +120,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="APP\APP.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="APP\APP.h">
       <SubType>compile</SubType>
     </Compile>
@@ -145,6 +142,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\lcd\LCD_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\ultrasonic\ultrasonic.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -198,7 +201,16 @@
     <Compile Include="MCAL\timer1\timer1_program.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\timer_0\timers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\timer_0\timers.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SERVICE\common_macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SERVICE\registers.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SERVICE\standard_types.h">
@@ -208,11 +220,13 @@
   <ItemGroup>
     <Folder Include="HAL\lcd" />
     <Folder Include="HAL\icu" />
+    <Folder Include="HAL\ultrasonic" />
     <Folder Include="MCAL" />
     <Folder Include="HAL" />
     <Folder Include="APP" />
     <Folder Include="MCAL\dio" />
     <Folder Include="MCAL\int0" />
+    <Folder Include="MCAL\timer_0" />
     <Folder Include="MCAL\timer0" />
     <Folder Include="MCAL\timer1" />
     <Folder Include="SERVICE" />

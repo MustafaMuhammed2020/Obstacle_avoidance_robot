@@ -42,7 +42,7 @@
 /**                       4 - PRESCALER_256                       **/
 /**                       5 - PRESCALER_1024                      **/
 /*******************************************************************/
-#define TIMER0_PRESCALER_VAL  PRESCALER_1024   
+#define TIMER0_PRESCALER_VAL  PRESCALER_64   
 
 
 

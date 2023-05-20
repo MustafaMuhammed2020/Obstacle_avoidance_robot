@@ -35,11 +35,13 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../HAL/lcd \
 ../HAL/icu \
+../HAL/ultrasonic \
 ../MCAL \
 ../HAL \
 ../APP \
 ../MCAL/dio \
 ../MCAL/int0 \
+../MCAL/timer_0 \
 ../MCAL/timer0 \
 ../MCAL/timer1 \
 ../SERVICE
@@ -47,14 +49,15 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../APP/APP.c \
 ../HAL/icu/ICU_program.c \
 ../HAL/lcd/LCD_program.c \
+../HAL/ultrasonic/ultrasonic.c \
 ../main.c \
 ../MCAL/dio/DIO_program.c \
 ../MCAL/int0/INT_program.c \
 ../MCAL/timer0/TMR0_program.c \
-../MCAL/timer1/timer1_program.c
+../MCAL/timer1/timer1_program.c \
+../MCAL/timer_0/timers.c
 
 
 PREPROCESSING_SRCS += 
@@ -64,44 +67,48 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-APP/APP.o \
 HAL/icu/ICU_program.o \
 HAL/lcd/LCD_program.o \
+HAL/ultrasonic/ultrasonic.o \
 main.o \
 MCAL/dio/DIO_program.o \
 MCAL/int0/INT_program.o \
 MCAL/timer0/TMR0_program.o \
-MCAL/timer1/timer1_program.o
+MCAL/timer1/timer1_program.o \
+MCAL/timer_0/timers.o
 
 OBJS_AS_ARGS +=  \
-APP/APP.o \
 HAL/icu/ICU_program.o \
 HAL/lcd/LCD_program.o \
+HAL/ultrasonic/ultrasonic.o \
 main.o \
 MCAL/dio/DIO_program.o \
 MCAL/int0/INT_program.o \
 MCAL/timer0/TMR0_program.o \
-MCAL/timer1/timer1_program.o
+MCAL/timer1/timer1_program.o \
+MCAL/timer_0/timers.o
 
 C_DEPS +=  \
-APP/APP.d \
 HAL/icu/ICU_program.d \
 HAL/lcd/LCD_program.d \
+HAL/ultrasonic/ultrasonic.d \
 main.d \
 MCAL/dio/DIO_program.d \
 MCAL/int0/INT_program.d \
 MCAL/timer0/TMR0_program.d \
-MCAL/timer1/timer1_program.d
+MCAL/timer1/timer1_program.d \
+MCAL/timer_0/timers.d
 
 C_DEPS_AS_ARGS +=  \
-APP/APP.d \
 HAL/icu/ICU_program.d \
 HAL/lcd/LCD_program.d \
+HAL/ultrasonic/ultrasonic.d \
 main.d \
 MCAL/dio/DIO_program.d \
 MCAL/int0/INT_program.d \
 MCAL/timer0/TMR0_program.d \
-MCAL/timer1/timer1_program.d
+MCAL/timer1/timer1_program.d \
+MCAL/timer_0/timers.d
 
 OUTPUT_FILE_PATH +=Obstacle\ avoidance\ car.elf
 
@@ -117,13 +124,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-APP/APP.o: ../APP/APP.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
 HAL/icu/ICU_program.o: ../HAL/icu/ICU_program.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -132,6 +132,13 @@ HAL/icu/ICU_program.o: ../HAL/icu/ICU_program.c
 	
 
 HAL/lcd/LCD_program.o: ../HAL/lcd/LCD_program.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/ultrasonic/ultrasonic.o: ../HAL/ultrasonic/ultrasonic.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -167,6 +174,13 @@ MCAL/timer0/TMR0_program.o: ../MCAL/timer0/TMR0_program.c
 	
 
 MCAL/timer1/timer1_program.o: ../MCAL/timer1/timer1_program.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+MCAL/timer_0/timers.o: ../MCAL/timer_0/timers.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

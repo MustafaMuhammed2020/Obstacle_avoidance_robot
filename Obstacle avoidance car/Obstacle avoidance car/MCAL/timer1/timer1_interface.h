@@ -117,5 +117,8 @@ uint32_t TMR1_getovs(uint32_t u32_a_delay);
 void TMR1_getvalue(uint16t * u16_a_value);
 
 
+void TMR1_setvalue(uint16t u16_a_value);
+
+
 
 #endif /* TMR1_H_ */
