@@ -105,19 +105,19 @@ PinValue_t DIO_setpinvalue(uint8_t u8_a_portid , uint8_t u8_a_pinid , uint8_t u8
 		switch(u8_a_portid)  /** SWITCH CASE ON THE PORT ID */ 
 		{
 			case DIO_PORTA:
-			clear_bit(PORTA , u8_a_pinid);       /** SET THIS PIN AS LOW **/
+			clear_bit(PORTA , u8_a_pinid);       /** SET THIS PIN AS DIO_PIN_LOW **/
 			break;
 			
 			case DIO_PORTB:
-			clear_bit(PORTB , u8_a_pinid);       /** SET THIS PIN AS LOW **/
+			clear_bit(PORTB , u8_a_pinid);       /** SET THIS PIN AS DIO_PIN_LOW **/
 			break;
 			
 			case DIO_PORTC:
-			clear_bit(PORTC , u8_a_pinid);       /** SET THIS PIN AS LOW **/
+			clear_bit(PORTC , u8_a_pinid);       /** SET THIS PIN AS DIO_PIN_LOW **/
 			break;
 			
 			case DIO_PORTD:
-			clear_bit(PORTD , u8_a_pinid);       /** SET THIS PIN AS LOW **/
+			clear_bit(PORTD , u8_a_pinid);       /** SET THIS PIN AS DIO_PIN_LOW **/
 			break;
 			
 			default:
@@ -131,19 +131,19 @@ PinValue_t DIO_setpinvalue(uint8_t u8_a_portid , uint8_t u8_a_pinid , uint8_t u8
 		switch(u8_a_portid)
 		{
 			case DIO_PORTA:
-			set_bit(PORTA , u8_a_pinid);         /** SET THIS PIN AS HIGH  **/
+			set_bit(PORTA , u8_a_pinid);         /** SET THIS PIN AS DIO_PIN_HIGH  **/
 			break;
 			
 			case DIO_PORTB:
-			set_bit(PORTB , u8_a_pinid);         /** SET THIS PIN AS HIGH  **/
+			set_bit(PORTB , u8_a_pinid);         /** SET THIS PIN AS DIO_PIN_HIGH  **/
 			break;
 			
 			case DIO_PORTC:
-			set_bit(PORTC , u8_a_pinid);         /** SET THIS PIN AS HIGH  **/
+			set_bit(PORTC , u8_a_pinid);         /** SET THIS PIN AS DIO_PIN_HIGH  **/
 			break;
 			
 			case DIO_PORTD:
-			set_bit(PORTD , u8_a_pinid);         /** SET THIS PIN AS HIGH  **/
+			set_bit(PORTD , u8_a_pinid);         /** SET THIS PIN AS DIO_PIN_HIGH  **/
 			break;
 			
 			default:
@@ -301,4 +301,84 @@ PinValue_t DIO_setportvalue(uint8_t u8_a_portid , uint8_t u8_a_portval)
 	}
 	
 	return en_a_portvaluestatus ; /** RETURN THE FINAL STATUS **/ 
+}
+
+/*******************************************************************************************/
+/*Description: Sets an array of pins as DIO_PIN_HIGH or LOW depending on the state passed          */
+/*@param u8_l_mask              pins mask                                                  */
+/*@param u8_l_portNumber        port number                                                */
+/*@param u8_l_value             mask desired state                                         */
+/*******************************************************************************************/
+void DIO_array_write(uint8_t u8_l_mask, uint8_t u8_l_portNumber, uint8_t u8_l_value)
+{
+	switch(u8_l_portNumber)
+	{
+		case DIO_PORTA:
+		if(u8_l_value == DIO_PIN_LOW)
+		{
+			Clear_mask(u8_l_mask,PORTA);
+		}
+		else if(u8_l_value == DIO_PIN_HIGH)
+		{
+			Set_mask(u8_l_mask,PORTA);
+		}
+		else
+		{
+			// Error Handling
+			return ;
+		}
+		break;
+		
+		case DIO_PORTB:
+		if(u8_l_value == DIO_PIN_LOW)
+		{
+			Clear_mask(u8_l_mask,PORTB);
+		}
+		else if(u8_l_value == DIO_PIN_HIGH)
+		{
+			Set_mask(u8_l_mask,PORTB);
+		}
+		else
+		{
+			// Error Handling
+			return ;
+		}
+		break;
+		
+		case DIO_PORTC:
+		if(u8_l_value == DIO_PIN_LOW)
+		{
+			Clear_mask(u8_l_mask,PORTC);
+		}
+		else if(u8_l_value == DIO_PIN_HIGH)
+		{
+			Set_mask(u8_l_mask,PORTC);
+		}
+		else
+		{
+			// Error Handling
+			return ;
+		}
+		break;
+		
+		case DIO_PORTD:
+		if(u8_l_value == DIO_PIN_LOW)
+		{
+			Clear_mask(u8_l_mask,PORTD);
+		}
+		else if(u8_l_value == DIO_PIN_HIGH)
+		{
+			Set_mask(u8_l_mask,PORTD);
+		}
+		else
+		{
+			// Error Handling
+			return ;
+		}
+		break;
+		
+		default:
+		return ;
+	}
+	return ;
 }

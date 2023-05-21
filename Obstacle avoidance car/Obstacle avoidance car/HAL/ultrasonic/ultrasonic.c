@@ -50,8 +50,9 @@ EN_USONIC_STATUS USONIC_getdistance(uint8_t *u8_a_distance)
 	TMR1_getvalue(&duration_ticks);
 	DIO_setpinvalue(DIO_PORTB, DIO_PIN6, DIO_PIN_HIGH);
 	//TMR1_stop();
-	duration_us = duration_ticks / 8;
+	duration_us = duration_ticks *8;
 	distance = duration_us * 0.017;
-	*u8_a_distance = distance;
+	*u8_a_distance = +distance>255? 255:distance;
+	
 	return USONIC_SUCCESS;
 }

@@ -23,4 +23,8 @@ typedef signed long int    sint32_t;     /* 4-BYTES SIGNED DATA    */
 typedef float  float32;                 /* 4-BYTES FLOATING DATA */
 typedef double double64;                /* 8-BYTES FLOATING DATA */
 
+typedef enum err_state
+{
+	SUCCESS,FAIL
+}err_state;
 #endif 

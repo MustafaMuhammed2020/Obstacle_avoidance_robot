@@ -2,7 +2,7 @@
  * motor.c
  *
  * Created: 4/6/2023 6:10:38 PM
- *  Author: Omar Taha
+ *  Author: Team 2
  */ 
 
 #include "motor.h"
@@ -10,7 +10,7 @@
 /***************************************************************************/
 /*This error is calculated for the 100 milliseconds T-Period !!            */
 /***************************************************************************/
-double d_g_err =0.042;//error in the delay times due to context switching.The error is 4.2% of the difference between the required On/Off Time and 50% of the T-Period.
+double d_g_err =0.042;//error in the delay times due to context switching.The error is 4.2% of the difference between the required On/Off Time and 50% of the T-Period (100 milliseconds).
 
 
 /************************************************************************/
@@ -18,9 +18,10 @@ double d_g_err =0.042;//error in the delay times due to context switching.The er
 /*@param u8_a_pinNumber pin number                                      */
 /*@param u8_a_portNumber port number                                    */
 /************************************************************************/
-void MOTOR_init(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
+err_state MOTOR_init(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
 {
-    DIO_setpindir(u8_a_portNumber ,u8_a_pinNumber ,DIO_PIN_OUTPUT);
+     DIO_setpindir(u8_a_portNumber, u8_a_pinNumber,DIO_PIN_OUTPUT);
+    return SUCCESS;
 }
 
 /************************************************************************/
@@ -28,9 +29,10 @@ void MOTOR_init(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
 /*@param u8_a_mask mask for the pins                                    */
 /*@param u8_a_portNumber port number                                    */
 /************************************************************************/
-void MOTOR_on(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
+err_state MOTOR_on(uint8_t u8_a_mask, uint8_t u8_a_portNumber)
 {
-    DIO_setpinvalue(u8_a_portNumber, u8_a_pinNumber, DIO_PIN_HIGH);
+    DIO_array_write(u8_a_mask,u8_a_portNumber,DIO_PIN_HIGH);
+    return SUCCESS;
 }
 
 /************************************************************************/
@@ -38,9 +40,10 @@ void MOTOR_on(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
 /*@param u8_a_mask u8_a_mask for the pins                               */
 /*@param u8_a_portNumber port number                                    */
 /************************************************************************/
-void MOTOR_off(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
+err_state MOTOR_off(uint8_t u8_a_mask, uint8_t u8_a_portNumber)
 {
-    DIO_array_write(u8_a_portNumber, u8_a_pinNumber, DIO_PIN_LOW);
+    DIO_array_write(u8_a_mask,u8_a_portNumber,DIO_PIN_LOW);
+    return SUCCESS;
 }
 
 /*****************************************************************************************************************************************************************************/
@@ -50,7 +53,7 @@ void MOTOR_off(uint8_t u8_a_pinNumber, uint8_t u8_a_portNumber)
 /*@param f_a_speedPercentage duty cycle                                                                                                                                      */
 /*@param f_a_tPeriod T-Period                                                                                                                                                */
 /*****************************************************************************************************************************************************************************/
-void MOTOR_control(uint8_t u8_a_mask, uint8_t u8_a_portNumber,float f_a_speedPercentage)
+err_state MOTOR_control(uint8_t u8_a_mask, uint8_t u8_a_portNumber,float f_a_speedPercentage)
 {
     double d_l_onTime,d_l_offTime = 0;
     
@@ -74,6 +77,7 @@ void MOTOR_control(uint8_t u8_a_mask, uint8_t u8_a_portNumber,float f_a_speedPer
     MOTOR_off(u8_a_mask,u8_a_portNumber);//motors off	
     TMR0_delayms(d_l_offTime);////busy loop until the off time is met
         
+    return SUCCESS;
 }
 
 

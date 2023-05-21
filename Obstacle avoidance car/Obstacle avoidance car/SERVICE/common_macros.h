@@ -32,6 +32,12 @@
 /*macro to display a specific flag*/
 #define get_bit(byte,flag_num) (byte = ((byte >> flag_num) & 0X01))
 
+/*macro to set a mask*/
+#define Set_mask(mask,portNumber) ((portNumber) |= mask)
+
+/*macro to clear a mask*/
+#define Clear_mask(mask,portNumber) ((portNumber) &= ~(mask))
+
 
 
 

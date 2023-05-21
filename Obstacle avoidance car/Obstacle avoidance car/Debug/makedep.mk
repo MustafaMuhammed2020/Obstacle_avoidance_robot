@@ -2,9 +2,15 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+APP\APP.c
+
 HAL\icu\ICU_program.c
 
+HAL\keypad\KEYPAD_program.c
+
 HAL\lcd\LCD_program.c
+
+HAL\motor\motor.c
 
 HAL\ultrasonic\ultrasonic.c
 
